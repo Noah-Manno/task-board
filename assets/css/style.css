@@ -14,3 +14,15 @@ body {
   .task-card:hover {
     cursor: grab;
   }
+
+  .btn {
+    border: 1px solid black;
+  }
+
+  .card {
+    color: white;
+  }
+
+  .card-header {
+    font-size: 30px;
+  }
