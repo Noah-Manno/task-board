@@ -19,9 +19,15 @@ function generateTaskId() {
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     let todoCards = $('#todo-cards');
+    let inProgressCards = $('#in-progress-cards');
+    let doneCards = $('#done-cards');
+
     let formattedDueDate = dayjs(task.dueDate).format('MMM DD, YYYY');
 
     let card = $('<div>').addClass('card bg-primary draggable');
+    card.attr('data-id', task.id);
+
+
     let cardHeader = $('<div>').addClass('card-header').text(task.title);
     let cardBody = $('<div>').addClass('card-body');
     let cardTextOne = $('<p>').addClass('card-text').text(task.description);
@@ -33,7 +39,13 @@ function createTaskCard(task) {
     cardBody.append(cardTextOne);
     cardBody.append(cardTextTwo);
     cardBody.append(button);
+    if (task.status === "to-do") {
     todoCards.append(card);
+    } if (task.status === "in-progress") {
+        inProgressCards.append(card);
+    } if (task.status === "done") {
+        doneCards.append(card);
+    }
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -54,7 +66,7 @@ function renderTaskList() {
                     width: original.outerWidth(),
                 });
         }
-    })
+    });
 
 }
 
@@ -83,6 +95,7 @@ function handleAddTask(event){
         title: taskTitleInput, 
         date: dueDateInput,
         description: descriptionInput,
+        status: 'to-do',
     };
 
     console.log(task);
@@ -106,12 +119,28 @@ function handleDeleteTask(event){
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
 
+    const taskId = ui.draggable[0].dataset.id;
+    const newStatus = event.target.id;
+
+    console.log(taskId);
+    console.log(newStatus);
+
+    tasks.forEach(task => {
+        if (task.id === taskId) {
+        task.status = newStatus;
+        }
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    renderTaskList();
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
     renderTaskList();
 
+    $(".status-lane").droppable({
+        accept: '.draggable',
+        drop: handleDrop,
+    });
 });
-
-//ADD
