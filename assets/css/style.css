@@ -26,3 +26,7 @@ body {
   .card-header {
     font-size: 30px;
   }
+
+  .black-text {
+    color: black;
+  }
