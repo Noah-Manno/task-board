@@ -42,6 +42,8 @@ Please refer to the LICENSE in the repo.
 
 ## Deployment 
 
-Github Repository:
+Github Repository: https://github.com/Noah-Manno/task-board
 
-Deployed Site:
+Deployed Site: https://noah-manno.github.io/task-board/
+
+Screenshot: ![Screenshot of Project](/assets/Screenshot%202024-04-04%20at%208.45.50%20PM.png)
